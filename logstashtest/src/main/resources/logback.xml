@@ -11,10 +11,27 @@
             <MaxFileSize>1MB</MaxFileSize>
         </triggeringPolicy>
     </appender>
+    <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	    <destination>localhost:3456</destination>
+	    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+	        <providers>
+	            <mdc/> 
+	            <context/>
+	            <logLevel/>
+	            <loggerName/>
+	            <threadName/>
+	            <message/>
+	            <logstashMarkers/> 
+	            <arguments/>
+	        </providers>
+	    </encoder>
+	</appender>
     <logger name="jsonLogger" additivity="false" level="DEBUG">
         <appender-ref ref="jsonAppender"/>
+        <appender-ref ref="STASH"/>
     </logger>
     <root level="INFO">
         <appender-ref ref="jsonAppender"/>
+        <appender-ref ref="STASH"/>
     </root>
 </configuration>
